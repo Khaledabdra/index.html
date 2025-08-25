@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D A F A A W I - منصة الدردشة والتواصل</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%);
+            min-height: 100vh;
+            direction: rtl;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .auth-screen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .auth-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+            border: 2px solid #fed7aa;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .auth-header {
+            text-align: center;
+            padding: 2rem 2rem 1rem;
+        }
+        
+        .auth-logo {
+            width: 4rem;
+            height: 4rem;
+            background: #f97316;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+        
+        .auth-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #9a3412;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+        
+        .auth-subtitle {
+            color: #ea580c;
+            margin-bottom: 1.5rem;
+        }
+        
+        .auth-content {
+            padding: 0 2rem 2rem;
+        }
+        
+        .credibility-section {
+            background: #fff7ed;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #fed7aa;
+            margin-bottom: 1.5rem;
+        }
+        
+        .credibility-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .credibility-title {
+            font-weight: 600;
+            color: #9a3412;
+        }
+        
+        .credibility-text {
+            font-size: 0.875rem;
+            color: #c2410c;
+            line-height: 1.6;
+        }
+        
+        .google-btn, .complete-btn {
+            width: 100%;
+            background: #f97316;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: background-color 0.2s;
+            margin-top: 1rem;
+        }
+        
+        .google-btn:hover, .complete-btn:hover {
+            background: #ea580c;
+        }
+        
+        .username-input {
+            width: 100%;
+            border: 2px solid #fed7aa;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            font-size: 1rem;
+            margin: 1rem 0 0.5rem 0;
+            text-align: right;
+        }
+        
+        .username-input:focus {
+            outline: none;
+            border-color: #f97316;
+            box-shadow: 0 0 0 2px rgba(249,115,22,0.2);
+        }
+        
+        .error-msg {
+            color: #dc2626;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+            display: none;
+        }
+        
+        .main-app {
+            display: none;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        
+        .main-app.active {
+            display: flex;
+        }
+        
+        .header {
+            background: white;
+            border-bottom: 2px solid #fed7aa;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 0.75rem 0;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .header-logo-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: #f97316;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .header-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #9a3412;
+            letter-spacing: 0.1em;
+        }
+        
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .points-display {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .diamond-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            background: #f97316;
+            transform: rotate(45deg);
+            border-radius: 2px;
+        }
+        
+        .points-count {
+            font-weight: 600;
+            color: #c2410c;
+        }
+        
+        .avatar {
+            width: 2rem;
+            height: 2rem;
+            background: #fff7ed;
+            border: 2px solid #fed7aa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c2410c;
+            font-weight: 600;
+        }
+        
+        .logout-btn {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 1.5rem 0;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr 3fr;
+            }
+        }
+        
+        .card {
+            background: white;
+            border-radius: 0.75rem;
+            border: 1px solid #fed7aa;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            padding: 1rem 1rem 0.75rem;
+            border-bottom: 1px solid #fed7aa;
+        }
+        
+        .card-title {
+            font-size: 1.125rem;
+            color: #9a3412;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .card-content {
+            padding: 1rem;
+        }
+        
+        .top-user, .online-user {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0;
+            font-size: 0.875rem;
+        }
+        
+        .user-rank {
+            background: #f97316;
+            color: white;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            min-width: 1.5rem;
+            text-align: center;
+        }
+        
+        .user-rank.second {
+            background: #fb923c;
+        }
+        
+        .user-rank.third {
+            background: #fdba74;
+        }
+        
+        .user-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .user-name {
+            font-weight: 500;
+            color: #2563eb;
+            font-size: 0.875rem;
+        }
+        
+        .user-points {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-top: 0.25rem;
+        }
+        
+        .mini-diamond {
+            width: 0.75rem;
+            height: 0.75rem;
+            background: #f97316;
+            transform: rotate(45deg);
+            border-radius: 1px;
+        }
+        
+        .user-points-count {
+            font-size: 0.75rem;
+            color: #ea580c;
+        }
+        
+        .online-indicator {
+            width: 0.5rem;
+            height: 0.5rem;
+            background: #10b981;
+            border-radius: 50%;
+        }
+        
+        .online-count {
+            background: #dcfce7;
+            color: #166534;
+            border-radius: 0.25rem;
+            padding: 0.125rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        
+        .tabs {
+            width: 100%;
+        }
+        
+        .tabs-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: #fff7ed;
+            border-radius: 0.5rem;
+            padding: 0.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tab-trigger {
+            background: transparent;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #9a3412;
+            font-weight: 500;
+        }
+        
+        .tab-trigger.active {
+            background: #f97316;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .chat-area {
+            height: 24rem;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            overflow-y: auto;
+        }
+        
+        .chat-message {
+            background: white;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            border: 1px solid #fde68a;
+            margin-bottom: 0.75rem;
+        }
+        
+        .message-username {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #2563eb;
+            margin-bottom: 0.25rem;
+        }
+        
+        .message-text {
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+            word-wrap: break-word;
+        }
+        
+        .message-time {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+        
+        .chat-input-area {
+            display: flex;
+            gap: 0.5rem;
+            position: relative;
+        }
+        
+        .chat-input {
+            flex: 1;
+            border: 1px solid #fed7aa;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            font-size: 1rem;
+        }
+        
+        .chat-input:focus {
+            outline: none;
+            border-color: #f97316;
+            box-shadow: 0 0 0 2px rgba(249,115,22,0.2);
+        }
+        
+        .emoji-toggle {
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-radius: 0.25rem;
+            padding: 0.5rem;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        .send-btn {
+            background: #f97316;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .send-btn:hover {
+            background: #ea580c;
+        }
+        
+        .send-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+        
+        .emoji-picker {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 80px;
+            background: white;
+            border: 1px solid #fed7aa;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            z-index: 100;
+            max-width: 300px;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.25rem;
+        }
+        
+        .emoji-picker.active {
+            display: grid;
+        }
+        
+        .emoji-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            padding: 0.25rem;
+            cursor: pointer;
+            border-radius: 0.25rem;
+        }
+        
+        .emoji-btn:hover {
+            background: #fff7ed;
+        }
+        
+        .cooldown-timer {
+            font-size: 0.75rem;
+            color: #ea580c;
+            margin-top: 0.25rem;
+            text-align: center;
+        }
+        
+        .apps-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+        
+        .app-card {
+            background: white;
+            border: 1px solid #fed7aa;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            transition: box-shadow 0.2s;
+        }
+        
+        .app-card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        
+        .app-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .app-title {
+            font-size: 1.125rem;
+            color: #9a3412;
+        }
+        
+        .app-description {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .app-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-bottom: 0.75rem;
+        }
+        
+        .download-btn {
+            width: 100%;
+            background: #f97316;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+        
+        .download-btn:hover {
+            background: #ea580c;
+        }
+        
+        .footer {
+            background: white;
+            border-top: 2px solid #fed7aa;
+            margin-top: 2rem;
+        }
+        
+        .footer-content {
+            text-align: center;
+            padding: 1.5rem 0;
+            color: #c2410c;
+        }
+        
+        .icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            fill: currentColor;
+        }
+        
+        .icon-white {
+            color: white;
+        }
+        
+        @media (max-width: 640px) {
+            .content-grid {
+                gap: 1rem;
+            }
+            .header-title {
+                font-size: 1rem;
+            }
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="authScreen" class="auth-screen">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <svg class="icon icon-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                </div>
+                <h1 class="auth-title">D A F A A W I</h1>
+                <p class="auth-subtitle">منصة الدردشة والتواصل الآمنة</p>
+            </div>
+            <div class="auth-content">
+                <div class="credibility-section">
+                    <div class="credibility-header">
+                        <svg class="icon" style="color: #ea580c;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                        <h3 class="credibility-title">مصداقية وأمان</h3>
+                    </div>
+                    <p class="credibility-text">منصة DAFAAWI هي منصة موثوقة ومعتمدة تضمن لك التواصل الآمن مع المجتمع. نحن نستخدم أحدث تقنيات الحماية والتشفير لضمان خصوصية بياناتك وأمان محادثاتك. جميع المستخدمين مُصدق عليهم عبر Gmail لضمان هوية حقيقية وبيئة آمنة للجميع.</p>
+                </div>
+                <button class="google-btn" onclick="signInWithGoogle()">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    تسجيل الدخول بـ Gmail
+                </button>
+                <div id="usernameSection" style="display:none;">
+                    <input type="text" id="usernameInput" class="username-input" placeholder="أدخل اسمك (4 أحرف على الأقل)" maxlength="20">
+                    <div id="usernameError" class="error-msg">الاسم يجب أن يكون 4 أحرف على الأقل</div>
+                    <button class="complete-btn" onclick="completeRegistration()">إكمال التسجيل</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mainApp" class="main-app">
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="header-logo">
+                        <div class="header-logo-icon">
+                            <svg class="icon icon-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                            </svg>
+                        </div>
+                        <h1 class="header-title">D A F A A W I</h1>
+                    </div>
+                    <div class="header-user">
+                        <div class="points-display">
+                            <div class="diamond-icon"></div>
+                            <span class="points-count" id="pts">5.5</span>
+                        </div>
+                        <div class="avatar" id="userAvatar">م</div>
+                        <button class="logout-btn" onclick="signOut()">خروج</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="container">
+                <div class="content-grid">
+                    <div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <svg class="icon" style="color: #f97316;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                                        <path d="M14 9h1.5a2.5 2.5 0 0 0 0-5H14"/>
+                                        <path d="M4 22v-2a6 6 0 0 1 6-6v6"/>
+                                        <path d="M14 16v6"/>
+                                        <path d="M18 16v6"/>
+                                        <path d="M8 9v13"/>
+                                        <path d="M12 9v4"/>
+                                    </svg>
+                                    أفضل المشاركين
+                                </h3>
+                            </div>
+                            <div class="card-content" id="topUsers"></div>
+                        </div>
+
+                        <div class="card" style="margin-top: 1rem;">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <svg class="icon" style="color: #10b981;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                        <circle cx="9" cy="7" r="4"/>
+                                        <path d="m19 8 2 2-2 2"/>
+                                        <path d="M19 12h4"/>
+                                    </svg>
+                                    المتصلون الآن
+                                    <span class="online-count" id="onlineCount">0</span>
+                                </h3>
+                            </div>
+                            <div class="card-content">
+                                <div id="onlineUsers"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="tabs">
+                            <div class="tabs-list">
+                                <button class="tab-trigger active" onclick="switchTab('chat',this)">الدردشة العامة</button>
+                                <button class="tab-trigger" onclick="switchTab('apps',this)">تحميل التطبيقات</button>
+                            </div>
+
+                            <div id="chatTab" class="tab-content active">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">
+                                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                                            </svg>
+                                            الدردشة العامة
+                                        </h3>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="chat-area" id="chat"></div>
+                                        <div class="chat-input-area">
+                                            <input type="text" class="chat-input" id="inp" placeholder="اكتب رسالتك هنا..." onkeypress="handleKey(event)" maxlength="500">
+                                            <button class="emoji-toggle" onclick="toggleEmojiPicker()">😊</button>
+                                            <button class="send-btn" onclick="send()" id="sendBtn">إرسال</button>
+                                            <div id="emojiPicker" class="emoji-picker">
+                                                <button class="emoji-btn" onclick="addEmoji('😀')">😀</button>
+                                                <button class="emoji-btn" onclick="addEmoji('😊')">😊</button>
+                                                <button class="emoji-btn" onclickddEmoji('😂')">😂</button>
+                                                <button class="emoji-btn" onclick="addEmoji('❤️')">❤️</button>
+                                                <button class="emoji-btn" onclick="addEmoji('👍')">👍</button>
+                                                <button class="emoji-btn" onclick="aji('👎')">👎</button>
+                                                <button class="emoji-btn" onclickaddEmoji('🎉')">🎉</button>
+                                                <button class="emoji-btn" onclick="addEmoji('😎')">😎</button>
+                                                <button class="emoji-btn" onclick="addEmoji('🤔')">🤔</button>
+                                                <button class="emoji-btn" onclick="ji('💪')">💪</button>
+                                                <button class="emoji-btn" onclickaddEmoji('🔥')">🔥</button>
+                                                <button class="emoji-btn" onclick="addEmoji('⭐')">⭐</button>
+                                            </div>
+                                        </div>
+                                        <div id="cooldownTimer" class="cooldown-timer" style="display:none;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="appsTab" class="tab-content">
+                                <div class="apps-grid">
+                                    <div class="app-card">
+                                        <div class="app-header">
+                                            <svg class="icon" style="color: #f97316;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                                <polyline points="7,10 12,15 17,10"/>
+                                                <line x1="12" y1="15" x2="12" y2="3"/>
+                                            </svg>
+                                            <h3 class="app-title">DAFAAWI Mobile</h3>
+                                        </div>
+                                        <p class="app-description">تطبيق الدردشة الرسمي للجوال</p>
+                                        <div class="app-details">
+                                            <span>الإصدار: 2.1.0</span>
+                                            <span>الحجم: 25 MB</span>
+                                        </div>
+                                        <button class="download-btn">تحميل الآن</button>
+                          
